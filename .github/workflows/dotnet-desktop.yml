@@ -28,11 +28,8 @@ jobs:
       - name: Publish (Self-Contained)
         run: dotnet publish -c Release -r win-x64 --self-contained false -o ./publish
 
-      - name: Create ZIP for Release
-        run: Compress-Archive -Path ./publish/* -DestinationPath CPU_Gaming.zip
-
-      - name: Upload Build Artifact
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: CPU_Gaming
-          path: CPU_Gaming.zip
+          path: ./publish/
