@@ -21,6 +21,7 @@
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Refresh" Click="MenuItem_Click"/>
+                            <MenuItem x:Name="Startup1" Header="Run at Startup" Click="StartupItem_Click"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
@@ -31,7 +32,13 @@
                 <Menu DockPanel.Dock="Top">
                     <MenuItem Header="Configured Windows" IsEnabled="False"/>
                 </Menu>
-                <ListView x:Name="configuredProcesses" HorizontalContentAlignment="Stretch"/>
+                <ListView x:Name="configuredProcesses" HorizontalContentAlignment="Stretch">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="Startup2" Header="Run at Startup" Click="StartupItem_Click"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
             </DockPanel>
         </Border>
     </Grid>

@@ -14,20 +14,22 @@ namespace CPU_Gaming
         private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
         private bool CloseMe = false;
 
-        List<ProcessSetting> settingsList = [];
+        private List<ProcessSetting> settingsList = [];
 
-        CancellationTokenSource source = new();
+        private CancellationTokenSource source = new();
 
-        NotifyIcon icon;
+        private readonly NotifyIcon icon;
 
         public MainWindow()
         {
             InitializeComponent();
-            icon = new NotifyIcon();
-            icon.Icon = new Icon("Icon.ico");
-            icon.Text = "CPU Gaming";
-            icon.Visible = false;
-            icon.ContextMenuStrip = new ContextMenuStrip();
+            icon = new NotifyIcon
+            {
+                Icon = new Icon("Icon.ico"),
+                Text = "CPU Gaming",
+                Visible = false,
+                ContextMenuStrip = new ContextMenuStrip()
+            };
             icon.ContextMenuStrip.Items.Add("Show Window", null, (sender, e) => { icon.Visible = false; Visibility = Visibility.Visible; });
             icon.ContextMenuStrip.Items.Add("Exit", null, (sender, e) => { CloseMe = true; Close(); });
         }
@@ -76,7 +78,7 @@ namespace CPU_Gaming
 
             UpdateProcesses();
             _ = SearchForActive(source.Token);
-            DispatcherTimer timer = new DispatcherTimer();
+            var timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 1, 0);
             timer.Start();
@@ -125,6 +127,14 @@ namespace CPU_Gaming
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             UpdateProcesses();
+        }
+
+        private void StartupItem_Click(object sender, RoutedEventArgs e)
+        {
+            var path = Process.GetCurrentProcess().MainModule?.FileName;
+            if (path is null) return;
+
+            SchedulerHelper.AddToTaskScheduler("CPUGamingStartup", path);
         }
 
         private void Window_Closed(object sender, EventArgs e)

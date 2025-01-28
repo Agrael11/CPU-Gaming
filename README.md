@@ -47,8 +47,15 @@ A simple tool to automatically set CPU affinity and priority for selected proces
   3. The item will be removed from the saved list and returned to **Free Windows**.
   4. The program will no longer set affinity and priority for that process.
 
+## Running at Startup
+- To enable the program to run automatically at startup:
+  1. Right-click on an empty space in the application.
+  2. Select **Run at Startup**.
+  3. This will create a Task Scheduler entry to launch the program with Administrator privileges at logon.
+
 ## Example Use Case
 If a game like **LEGO Star Wars: The Complete Saga** runs poorly on multiple cores, you can set it to run only on **CPU 0** automatically using this tool.
 
 ## License
 This project is licensed under the MIT License.
+

@@ -14,7 +14,7 @@ namespace CPU_Gaming
         private readonly ProcessViewViewModel viewModel;
         public ProcessSetting setting = new("", "", "", 0, ProcessPriorityClass.Idle);
         private int CPUS = 0;
-        private List<MenuItem> affinityMenus = new List<MenuItem>();
+        private readonly List<MenuItem> affinityMenus = [];
 
         public int PID { get => viewModel.PID; set { viewModel.PID = value; } }
         public string ProcessName { get => setting.RuleName; set { setting.RuleName = value; viewModel.ProcessName = value; } }
