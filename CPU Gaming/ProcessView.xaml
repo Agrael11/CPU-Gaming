@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="CPU_Gaming.ProcessView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CPU_Gaming"
+             mc:Ignorable="d" HorizontalAlignment="Stretch">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem x:Name="ResetButton" Header="Reset" Click="ResetMenu_Click" Visibility="Collapsed"/>
+            <MenuItem Header="Select Priority">
+                <MenuItem x:Name="IdleMenu" IsCheckable="False" StaysOpenOnClick="True" Header="Low" Tag="0" Click="Priority_Checked"/>
+                <MenuItem x:Name="LowMenu" IsCheckable="False" StaysOpenOnClick="True" Header="Below Normal" Tag="1" Click="Priority_Checked"/>
+                <MenuItem x:Name="NormalMenu" IsCheckable="False" StaysOpenOnClick="True" Header="Normal" Tag="2" Click="Priority_Checked"/>
+                <MenuItem x:Name="AboveMenu" IsCheckable="False" StaysOpenOnClick="True" Header="Above Normal" Tag="3" Click="Priority_Checked"/>
+                <MenuItem x:Name="HighMenu" IsCheckable="False" StaysOpenOnClick="True" Header="High" Tag="4" Click="Priority_Checked"/>
+                <MenuItem x:Name="RealtimeMenu" IsCheckable="False" StaysOpenOnClick="True" Header="Realtime" Tag="5" Click="Priority_Checked"/>
+            </MenuItem>
+            <MenuItem x:Name="Affinity" Header="Select Affinity">
+                <MenuItem x:Name="AllAffinity" Tag="AllProcesses" StaysOpenOnClick="True" Header="All Processors" IsCheckable="True" IsChecked="True" Click="Affinity_Checked"/>
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.ToolTip>
+            <ToolTip>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding PID, StringFormat='PID: {0}'}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="&#8203;{0}  -  {1}">
+                                <Binding Path="ProcessName"/>
+                                <Binding Path="WindowName"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <TextBlock Text="{Binding ExecatubleName}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <TextBlock Text="{Binding ProcessPriority, StringFormat='Priority: {0}'}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <TextBlock Text="{Binding ProcessAffinity, StringFormat='CPUs Enabled: {0}'}"/>
+                </StackPanel>
+            </ToolTip>
+        </Grid.ToolTip>
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="&#8203;{0}  -  {1}">
+                    <Binding Path="ProcessName"/>
+                    <Binding Path="WindowName"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </Grid>
+</UserControl>

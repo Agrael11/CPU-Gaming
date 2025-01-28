@@ -1,0 +1,38 @@
+﻿<Window x:Class="CPU_Gaming.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CPU_Gaming"
+        mc:Ignorable="d"
+        Title="CPU Gaming" Height="450" Width="800" Loaded="Window_Loaded" Closed="Window_Closed" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" BorderThickness="1">
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="Free Windows" IsEnabled="False"/>
+                    <MenuItem Header="_Refresh" Click="MenuItem_Click"/>
+                </Menu>
+                <ListView x:Name="availableProcesses" HorizontalContentAlignment="Stretch">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Refresh" Click="MenuItem_Click"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1" BorderThickness="1">
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="Configured Windows" IsEnabled="False"/>
+                </Menu>
+                <ListView x:Name="configuredProcesses" HorizontalContentAlignment="Stretch"/>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
