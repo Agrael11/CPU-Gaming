@@ -1,8 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Printing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace CPU_Gaming
 {
 
@@ -33,8 +36,16 @@ namespace CPU_Gaming
             icon.ContextMenuStrip.Items.Add("Show Window", null, (sender, e) => { icon.Visible = false; Visibility = Visibility.Visible; });
             icon.ContextMenuStrip.Items.Add("Exit", null, (sender, e) => { CloseMe = true; Close(); });
         }
+        
+        private void NewProcessSpawned(CPUProcessInfo processInfo)
+        {
+            foreach (var setting in settingsList.Where(s => s.ExecatubleTarget == processInfo.ProcessExecatubleName))
+            {
+                processInfo.Apply(setting);
+            }
+        }
 
-        public async Task SearchForActive(CancellationToken token)
+        /*public async Task SearchForActive(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
@@ -48,7 +59,7 @@ namespace CPU_Gaming
                 }
                 await Task.Delay(1000, token);
             }
-        }
+        }*/
 
         public static void ForceCheck(ProcessSetting setting)
         {
@@ -77,7 +88,8 @@ namespace CPU_Gaming
             }
 
             UpdateProcesses();
-            _ = SearchForActive(source.Token);
+            //_ = SearchForActive(source.Token);
+            WMIScheduler.RegisterWatcher(NewProcessSpawned);
             var timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 1, 0);

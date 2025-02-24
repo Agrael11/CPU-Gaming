@@ -52,11 +52,15 @@ namespace CPU_Gaming
 
             if (_cachedWindowTitle.state <= 0)
             {
-                if (_processHandle.TryGetProcessWindow(out var title))
+                try
                 {
-                    _cachedWindowTitle.name = title;
-                    _cachedWindowTitle.state = 100;
+                    if (_processHandle.TryGetProcessWindow(out var title))
+                    {
+                        _cachedWindowTitle.name = title;
+                        _cachedWindowTitle.state = 100;
+                    }
                 }
+                catch {}
             }
 
             return _cachedWindowTitle.name;
